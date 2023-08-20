@@ -24,11 +24,11 @@
           <div class="box">
             <div class="right-side">
               
-              <div class="box-topic">ventes</div>
-              <div class="number">0</div>
+              <div class="box-topic">Médicaments</div>
+              <div class="number">{{ $medoc }}</div>
               <div class="indicator">
                 <i class="bx bx-down-arrow-alt down"></i>
-                <span class="text">Vendue</span>
+                <span class="text">en stock</span>
               </div>
             </div>
             <i class="bx bxs-cart-add cart two"></i>
@@ -36,11 +36,11 @@
           <div class="box">
             <div class="right-side">
            
-              <div class="box-topic">Profil</div>
-              <div class="number">0 F</div>             
+              <div class="box-topic">Ventes</div>
+              <div class="number">{{ $ventes }}</div>             
               <div class="indicator">
                 <i class="bx bx-up-arrow-alt"></i>
-                <span class="text">Depuis hier</span>
+                <span class="text">vendu</span>
               </div>
             </div>
             <i class="bx bx-cart cart three"></i>
@@ -50,10 +50,10 @@
            
             <div class="right-side">
               <div class="box-topic">Commande</div>
-              <div class="number">0</div>
+              <div class="number">{{ $commandes }}</div>
               <div class="indicator">
                 <i class="bx bx-up-arrow-alt"></i>
-                <span class="text">Depuis hier</span>
+                <span class="text">Enregistrer</span>
               </div>
             </div>
             <i class="bx bx-cart-alt cart"></i>
@@ -63,7 +63,7 @@
             <div class="right-side">
             
               <div class="box-topic">Utilisateur</div>
-              <div class="number">0</div>
+              <div class="number">{{ $users}}</div>
               <div class="indicator">
                 <i class="bx bx-down-arrow-alt down"></i>
                 <span class="text">Enregistrer</span>
@@ -80,46 +80,37 @@
           <div class="sales-boxes" style="width:120rem;">
             <div class="recent-sales box">
               <div class="title">Commandes recentes</div>
+              
+              
               <div class="sales-details">
-               
                 <ul class="details">
                   <li class="topic">Date</li>
-                 
-                  <li><a href="#">0</a></li>
-                 
+                  @foreach ($recentComm as $recent)
+                  <li><a href="#">{{ $recent->dateCommande }}</a></li>
+                 @endforeach
                 </ul>        
                 <ul class="details">
                   <li class="topic">Client</li>
-                 
-                  <li><a href="#">modou</a></li>
-                  
+                  @foreach ($recentComm as $recent)
+                  <li><a href="#">{{ $recent->prenom }} {{ $recent->name }}</a></li>
+                  @endforeach
                 </ul>
                 <ul class="details">
                   <li class="topic">Médicaments</li>
-                  
-                  <li><a href="#">Paracetamole</a></li>
-                  
+                  @foreach ($recentComm as $recent)
+                  <li><a href="#">{{ $recent->nom }}</a></li>
+                  @endforeach
                 </ul>
                 <ul class="details">
                   <li class="topic">Prix Médicament</li>
-                  
-                  <li><a href="#"></a>0</li>
-                  
-                 
-                </ul>
-                <ul class="details">
-                  <li class="topic">Produits</li>
-                
-                  <li><a href="#">0</a></li>
-                 
-                </ul>
-                <ul class="details">
-                  <li class="topic">Prix Produit</li>
-                 
-                  <li><a href="#"></a>0</li>
+                  @foreach ($recentComm as $recent)
+                  <li><a href="#"></a>{{ $recent->prix_unitaire }}</li>
+                  @endforeach
                  
                 </ul>
               </div>
+                
+             
               <div class="button" >
                 <a href="#" type="button" class="btn-success" >Voir Tout</a>
               </div>

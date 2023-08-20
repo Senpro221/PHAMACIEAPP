@@ -2,7 +2,7 @@
 @section('page-content')
 
     <div class="container">
-    @if ($listeCommande)
+    @if ($listeCommande>0)
     <hr>
       <h1 class="text-success">Vos commandes</h1>
       <hr>

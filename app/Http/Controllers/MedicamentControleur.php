@@ -277,7 +277,7 @@ class MedicamentControleur extends Controller
             DB::delete('delete from appartenirs where id_panier =?',[$pane[0]->id]);
             
            //dd($db)
-          break;
+          
           
         } 
 
@@ -305,7 +305,7 @@ class MedicamentControleur extends Controller
     public function listerCommandes(Request $request){
             $user =  Auth::user()->id;
             $listeCommande =  DB::select('select * from commandes  where  user_id=?',[$user]);
-            $listeCommande =  Commande::orderBy('id', 'desc')->get();
+            //$listeCommande =  Commande::orderBy('id', 'desc')->get();
             return view('order.listerCommandes',[
                         'listeCommande'=>$listeCommande,
               ]);   
@@ -313,7 +313,7 @@ class MedicamentControleur extends Controller
 
     public function afficheDetails($id){
         $user = Auth::user()->id; 
-			 $detailsCom=DB::select('SELECT m.nom,m.prix_unitaire,o.quantiteCom,m.image FROM orders o,commandes c,medicaments m WHERE o.id_medoc=m.id and o.id_commande = c.id and c.id=?',[$id]);
+			 $detailsCom=DB::select('SELECT m.nom,m.prix_unitaire,o.quantiteCom,m.image FROM orders o,commandes c,medicaments m ,users u WHERE o.id_medoc=m.id and o.id_commande = c.id and c.user_id= u.id and u.id=? and c.id=?',[$user,$id]);
 			 
 			
 			//=================id_panier de l'utilisateur connecter============================
@@ -360,7 +360,10 @@ public function stockupdate(Request $request,$id){
             }else{
                 
                DB::update('update medicaments set quantite = '.$pa->quantite - $request->quantite.' where id = ?', [$pa->id]);
-             return redirect()->Route('listingMedoc')->with('success','médicament vendu avec succés');
+               
+               DB::insert('insert into vendres (user_id, id_medoc, quantiteVendue) values (?, ?, ?)', [Auth::user()->id,$id,$request->quantite]);
+
+               return redirect()->Route('listingMedoc')->with('success','médicament vendu avec succés');
            }
        break;
        }

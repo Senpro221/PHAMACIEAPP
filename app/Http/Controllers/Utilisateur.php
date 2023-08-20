@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
+use App\Models\Commande;
+use App\Models\Medicament;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -16,7 +18,25 @@ class Utilisateur extends Controller
      */
     public function index()
     {
-       return view('adminGerant');
+        $ventes = DB::table('vendres')->count();
+        //dd($ventes);
+        $medoc = DB::table('medicaments')->count();
+
+        $users = DB::table('users')->count();
+
+        $commandes = DB::table('commandes')->count();
+
+        $recentComm = DB::select("SELECT c.dateCommande,u.prenom,u.name,m.nom,m.prix_unitaire FROM orders o,commandes c,users u, medicaments m WHERE c.user_id=u.id and o.id_medoc = m.id and o.id_commande=c.id ORDER BY dateCommande DESC");
+
+       // dd($recentComm);
+       return view('adminGerant',[
+        'ventes'=>$ventes,
+        'medoc'=>$medoc,
+        'users'=>$users,
+        'commandes'=>$commandes,
+        'recentComm'=>$recentComm
+        ]);
+
     }
 
     /**
@@ -75,18 +95,40 @@ class Utilisateur extends Controller
         
     }
 
+    public function listeCommandeAll(Request $request)
+    {
+        //
+        $listeCommande = DB::select('select c.id, c.dateCommande,c.statut,c.typeLivraison,u.prenom,u.name,u.telephone from commandes c,users u where c.user_id=u.id ');
+
+        return view('order.listesCommandesAll',compact('listeCommande'));
+    }
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function DetailsCommandesGerant(Request $request,$id)
     {
-        //
-    }
+		$data = Commande::find($id);
+			//dd($data);
+		
+		$idcom = DB::select('select id from orders where id_commande = ?', [$id]);
+		$detailsCom =  DB::select('select * from orders,medicaments,commandes where medicaments.id=orders.id_medoc and commandes.id=orders.id_commande and id_commande=?',[$data->id]);
+	
+		return view('order.DetailsCommandesPharma',[
+			'detailsCom'=>$detailsCom,
+				  
+		]);
+	}
 
+    public function stock(Medicament $stocks,Request $request)
+    {       
+        $stocks = DB::select('select * from medicaments');
+        return view('stock.stock',compact('stocks'));
+        
+    }
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function ajoutMedoc(string $id)
     {
         //
     }
@@ -94,7 +136,7 @@ class Utilisateur extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function mettreAjour(string $id)
     {
         //
     }
@@ -102,7 +144,7 @@ class Utilisateur extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function statutmedicaments(Request $request, string $id)
     {
         //
     }

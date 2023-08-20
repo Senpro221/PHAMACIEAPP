@@ -32,6 +32,17 @@ Route::get('/listerCommandes',[MedicamentControleur::class,'listerCommandes'])->
 Route::post('/detailleComme',[MedicamentControleur::class,'detailleComme'])->name('DetailsCommandes');
 Route::get('/afficheDetails/{id}',[MedicamentControleur::class,'afficheDetails'])->name('afficheDetails');
 
+Route::get('/listeCommandeAll', [Utilisateur::class, 'listeCommandeAll'])->name('listeCommandeAll');
+Route::get('/DetailsCommandesGerant/{id}',[Utilisateur::class,'DetailsCommandesGerant'])->name('DetailsCommandesGerant');
+
+
+//stok admin
+Route::get('/stock', [Utilisateur::class,'stock'])->name('stock');
+//=========================================================Au niveau de stock====================================================================//
+Route::post('/ajoutNedoc/{id}',[Utilisateur::class,'ajoutMedoc'])->name('ajoutstock');
+Route::post('/mettreAjour/{id}',[Utilisateur::class,'mettreAjour'])->name('mettreAjour');
+Route::get('/medicaments/statut/{id}',[Utilisateur::class,'statutmedicaments'])->name('statutmedicaments');
+
 
 //categorie
 Route::get('/ajoutCat',[MedicamentControleur::class,'ajoutCat'])->name('ajouterCategorie');
@@ -76,4 +87,5 @@ Route::get('/vendre/{id}',[MedicamentControleur::class,'vendreMedicaments'])->na
 
 Route::post('/stockupdate/{id}',[MedicamentControleur::class,'stockupdate'])->name('stockupdate');
 Route::get('/{medicament}', [MedicamentControleur::class, 'detail'])->name('medicaments.show')->withoutMiddleware('auth');
+
 

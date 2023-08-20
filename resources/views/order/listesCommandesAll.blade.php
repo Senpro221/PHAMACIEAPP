@@ -1,4 +1,4 @@
-@extends('./../layouts/appGeran')
+@extends('./../layouts/app')
 @section('page-content')
 
 <body>  
@@ -17,6 +17,8 @@
                 <thead>
                 <tr>
                     <th>Numéro</th>
+                    <th>Client</th>
+                    <th>Téléphone</th>
                     <th>Date</th>
                     <th>Livraison</th>
                     <th>Statut</th>
@@ -27,6 +29,8 @@
                     @foreach ($listeCommande as $comm)
                     <tr>
                         <td>{{ $comm->id }}</td>
+                        <td>{{ $comm->prenom }} {{ $comm->name }}</td>
+                        <td>{{ $comm->telephone  }}</td>
                         <td>{{ $comm->dateCommande  }}</td>
                         <td>{{ $comm->typeLivraison }}</td>
                         @if($comm->statut == 1 )
@@ -36,9 +40,9 @@
                         @endif
                         <td>
                         @if ($comm->statut == 1)
-                        <a  href="{{ route('CommandeLivrerPharma',$comm->id) }}" class="btn btn-success">Livrer</a>
+                        <a  href="#" class="btn btn-success">Livrer</a>
                         @endif
-                        <a  href="{{ route('DetailsCommandesPharma',$comm->id) }}" class="btn btn-info">Details</a>
+                        <a  href="{{ route('DetailsCommandesGerant',$comm->id) }}" class="btn btn-info">Details</a>
                         </td>
                     </tr>
                     @endforeach

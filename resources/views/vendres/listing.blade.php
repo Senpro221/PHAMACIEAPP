@@ -13,7 +13,6 @@
     @endif
     <div class="overview-boxes">
   <!-- tables -->  
-
   <div class="box">
     <table class="mtable" border="1">
       <tr>
@@ -34,7 +33,13 @@
           <td>{{$medicament->prix_unitaire}}</td>
           <td>{{$medicament->categorie}}</td>
           <td> 
-            <a href="{{ route('vendre',$medicament->id) }}" type="submit" class="btn btn-success mt-1">vendre</a>
+            @if ($medicament->quantite === 0)
+            
+              <a role="link" aria-disabled="true" class="disabled btn btn-outline-danger mt-1" disabled='disabled'>vendre</a>
+            @else
+              <a  href="{{ route('vendre',$medicament->id) }}"  type="button" class="btn btn-outline-success mt-1" >vendre</a>
+
+            @endif
          </td>
 
       </tr>

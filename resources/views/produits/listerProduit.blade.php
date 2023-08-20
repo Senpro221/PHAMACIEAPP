@@ -13,7 +13,7 @@
 <div class="nb card float-lg-start shadow p-3 mb-1 bg-body rounded" style="max-width: 315px; height:35rem;">
    <img src="image/{{ $produit->image }}" class="card-img-top" alt="vous">
   <div class="card-body">
-    <h5 class="card-title"><a href="#" class="text-success" style="text-decoration: none;">{{$produit->nom}}</a></h5>
+    <h5 class="card-title"><a href="{{route('medicaments.show',$produit->id)}}" class="text-success" style="text-decoration: none;">{{$produit->nom}}</a></h5>
     <p class="card-text">{{$produit->libelle}}</p>
     <p
     {{-- {{  $quantite = $medicament->quantite ===0 ?'Indisponible':'Disponible' }} 
@@ -25,7 +25,7 @@
     
     @endif
   </p >
-  <a href="#"  class="btn btn-outline-success">Détail</a>
+  <a href="{{route('medicaments.show',$produit->id)}}"  class="btn btn-outline-success">Détail</a>
      <button type="button" class="btn btn-success">{{$produit->prix_unitaire}} fcfa</button>
      
   </div>

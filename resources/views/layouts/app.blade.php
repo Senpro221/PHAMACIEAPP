@@ -24,7 +24,7 @@
       </div>
       <ul class="nav-links">
         <li>
-          <a href="/adminGerant" class="active" >
+          <a href="/index" class="active" >
             <i class="bx bx-grid-alt"></i>
             <span class="links_name">Tableau De bord</span>
           </a>
@@ -51,13 +51,13 @@
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="{{ route('stock') }}">
             <i class="bx bx-coin-stack"></i>
             <span class="links_name">Stock</span>
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="{{ route('listeCommandeAll') }}">
             <i class="bx bx-list-ul"></i>
             <span class="links_name">Commandes</span>
           </a>
@@ -77,7 +77,7 @@
           </a>
         </li>
         <li class="log_out">
-          <a href="#">
+          <a href="{{ route('logout') }}">
             <i class="bx bx-log-out"></i>
             <span class="links_name">Déconnexion</span>
           </a>
